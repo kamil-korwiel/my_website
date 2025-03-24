@@ -1,0 +1,20 @@
+.row,
+.column {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.jumbo-text {
+  height: 80vh;
+  text-align: center;
+}
+.x-center {
+  justify-content: center;
+}
+.y-center {
+  align-items: center;
+}
+.column {
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
