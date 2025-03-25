@@ -16,18 +16,27 @@ templates = Jinja2Templates(directory="templates")
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     html = ""
-    markdown_path = Path("./data/about.md")
+    markdown_path_about_long = Path("./data/about.md")
+    markdown_path_about_short = Path("./data/about-short.md")
 
     try:
-        with markdown_path.open('r', encoding='utf-8') as file:
+        with markdown_path_about_long.open('r', encoding='utf-8') as file:
             text_md = file.read()
-            html = markdown.markdown(text_md, extensions=['fenced_code', 'tables'])
+            about_long = markdown.markdown(text_md, extensions=['fenced_code', 'tables'])
+
+        with markdown_path_about_short.open('r', encoding='utf-8') as file:
+            text_md = file.read()
+            about_short = markdown.markdown(text_md, extensions=['fenced_code', 'tables'])
     except FileNotFoundError:
-        html = "<p>Error: Markdown file not found.</p>"
+        about_short = about_long = "<p>Error: Markdown file not found.</p>"
     
-    return templates.TemplateResponse(request=request, name="site/index.html", context={"html" : html})
+    return templates.TemplateResponse(request=request, name="site/index.html", context={ "about_long" : about_long, "about_short": about_short })
 
 
 @app.get("/music-i-listen", response_class=HTMLResponse)
 async def my_music(request: Request):
-    return templates.TemplateResponse(request=request, name="errors/work_in_progress.html",)
+    return templates.TemplateResponse(request=request, name="site/top-names.html",)
+
+@app.get("/notes", response_class=HTMLResponse)
+async def my_music(request: Request):
+    return templates.TemplateResponse(request=request, name="card.html",)

@@ -18,3 +18,33 @@
   flex-direction: column;
   flex-wrap: nowrap;
 }
+
+.container {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.card {
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  border: dashed 2px;
+  border-radius: 0px;
+  overflow: hidden;
+}
+.card img {
+  width: 150px;
+  object-fit: fill;
+}
+
+.radio-buttons-about {
+  display: flex;
+}
+.radio-buttons-about label{
+  display: flex;
+  margin-right: 5px ;
+}
+.about_div{
+  display: none;
+}

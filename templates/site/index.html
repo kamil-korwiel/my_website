@@ -2,5 +2,37 @@
 
 {% block content %}
   {% include "elements/intro.html "%}
-  {{ html | safe }}
+  <div class="radio-buttons-about">
+    <label for="radio1">
+      <div>Short</div>
+    <input type="radio" id="radio1" name="toggle" onclick="toggleDivVisibility(1)" checked>
+  </label>
+    <label for="radio2">
+      <div>Long</div>
+    <input type="radio" id="radio2" name="toggle" onclick="toggleDivVisibility(2)">
+  </label>
+  </div>
+  
+  <div id="div1", class="about_div" style="display: block">
+    {{ about_short | safe }}
+  </div>
+  <div id="div2"  class="about_div">
+    {{ about_long | safe }}
+  </div>
+  
+    <script>
+        function toggleDivVisibility(selectedRadio) {
+            // Hide all divs
+            const divs = document.querySelectorAll('.about_div');
+            divs.forEach(div => div.style.display = 'none');
+            
+            // Show the selected div
+            const selectedDiv = document.getElementById('div' + selectedRadio);
+            selectedDiv.style.display = 'block';
+
+            document.location="/#" + selectedDiv.id
+        }
+    </script>
+
 {% endblock %}
+
