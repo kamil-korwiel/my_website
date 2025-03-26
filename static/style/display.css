@@ -48,3 +48,31 @@
 .about_div{
   display: none;
 }
+
+.row-info{
+  display: flex;
+  flex-direction: row;
+  margin-top: 25px;
+  margin-bottom: 0rem;
+  padding: 0rem;
+  align-items: center;
+  text-align: right;
+}
+
+.row-info.revers{
+  flex-direction: row-reverse;
+  text-align: left;
+}
+
+.row-info > img{
+  flex: 2;
+  max-width: 320px;
+  min-width: 120px;
+}
+
+.row-info > .info{
+  flex: 3;
+  padding-left: 20px;
+  padding-right: 20px;
+  flex-direction: column;
+}
