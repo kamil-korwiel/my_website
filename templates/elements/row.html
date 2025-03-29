@@ -1,40 +1,17 @@
-<h1>Co znam</h1>
-
+{% macro row(path_img, text, index) %}
+{% if index is divisibleby(2) %}
 <div class="row-info"> 
-    <img src="{{ url_for('static', path='picture/Python_logo_white.png') }}" style="filter: invert(0.35) sepia(1) saturate(10) hue-rotate(181deg)"/>
+    <img src="{{ url_for('static', path='picture/' ~ path_img) }}">
     <div class="info">
-        Moja ulubiona jeżykiem do pisania kodu jest Python jest bardzo wygodnym językiem z powodu
-        dobrze udokumentowanych bibliotek jaki ich mnogości i łatwości instalacji wecej czasu można spędzić nad rozumieniem tego się co pisze niż koniguracji smego projektu jak na przykład w NMP TypeScript projekt.
-        jest bardzo czytelnym jerzykiem jeśli używa się wbudowanych funkcji które pozwalają na wysoką wydajność całego programu 
-
-        Dlatego też na długi czas będę przywiązany do tego języka z powodu swoje szerokiego i zastosowania od aplikacji webowych aż po Uczenie Maszynowe
-
-        Może z początku na studiach to nie byłem dużym fanem z powodu braku stałych typów danych ale po tym jak zostało dodane możliwość tagin to moje podjecie się zmieniło
+        {{ text | safe }}
     </div>
 </div>
-
+{% else %}
 <div class="row-info revers"> 
-    <img src="{{ url_for('static', path='picture/Python_logo_white.png') }}" style="filter: invert(0.35) sepia(1) saturate(10) hue-rotate(181deg)"/>
+    <img src="{{ url_for('static', path='picture/' ~ path_img) }}">
     <div class="info">
-        Testowaniem się zająłem jak poznałem jengo z mandzerów w firmie REDACTED . na wydarzeniu folkowym. Ja próbowałem śpiewać co moim głosem to prawie zagłuszałem instrumenty, a on grać na bębnie, przez to że nie bardzo umiał wejść w rytm to na tym wydarzeni próbowałem go nauczyć trochę rytmy i tak poznaliśmy się.
-
-        W trakcie moich lekcji rytmu on na kierował mnie na testowanie więc polecił mi Playwrite do testowanie storn web, bym się nauczył jak zbierać dane z coverage czy to robię testy E2E czy Testy Komponentów.
-
-        O tak w wolnym czasie testuje sobie stronę MealDrop by lepie rozumieć samo w sobie testowanie 
-        nie tylko z jako developera ale osoby która całkowicie nie zna Reacta i ma świeże spojrzenie na same testy.
+        {{ text | safe }}
     </div>
 </div>
-
-<div class="row-info"> 
-    <img src="{{ url_for('static', path='picture/Python_logo_white.png') }}" style="filter: invert(0.35) sepia(1) saturate(10) hue-rotate(181deg)"/>
-    <div class="info">
-        Jednym z głównych systemów którym operuje jest Linux a raczej jego distro ZorinOS
-        Jest podobny do Ubuntu ale mam wrażenie ze lepiej wygląda i 
-        do tego systemu używam shella Zhs który jest cudowny niedość że wygląda dobrze  i można konfigurować jego wygląd to jeszcze  ma auto correcte i audto uzupełnianie która jedynie co uprzyjemnia prace z konsolą 
-        Fedorze by uczyć się jak konfigurować sieciowe protokoły jak DNS  
-        
-        Język SQL nie jest mi obcy, poznałem na studiach, przez to że mieliśmy świetnego prowadzącego zajęcia poznałem tam: Grupowanie danych , Łączenie tabel ,Funkcje agregujące, CRUD, Triggery jednym słowem podstawy podstaw Złożone zapytania
-        
-        Kiedyś byłem zainteresowany tworzeniem aplikach we Flutterze który wykorzystywał język Dart jednym z moich zespołowych projektów na studiach był Locatio aplikacja pozwalała tworzyć zadania tak by 
-    </div>
-</div>
+{% endif %}
+{% endmacro %}

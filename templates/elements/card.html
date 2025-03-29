@@ -1,45 +1,11 @@
+{% makro card(img_path, album_name, artist_name) %}
 <article class="product-card">
     <figure>
-        <img src="{{ url_for('static', path='picture/Work_in_progres.png') }}">
+        <img src="{{ url_for('static', path='picture/{{img_path}}') }}">
     </figure>
     <header class="card-info">
-        <h4 class="album-name">Lorem ipsum dolor sit</h4>
-        <p>Amet consectetur.</p>
+        <h4 class="album-name">{{album_name}}</h4>
+        <h6 class="artist-name">{{artist_name}}</h6>
     </header>
-</article>
-<article class="product-card">
-    <figure>
-        <img src="{{ url_for('static', path='picture/Work_in_progres.png') }}">
-    </figure>
-    <header class="card-info">
-        <h4 class="album-name">Lorem ipsum dolor sit</h4>
-        <p>Amet consectetur.</p>
-    </header>
-</article>
-<article class="product-card">
-    <figure>
-        <img src="{{ url_for('static', path='picture/Work_in_progres.png') }}">
-    </figure>
-    <header class="card-info">
-        <h4 class="album-name">Lorem ipsum dolor sit</h4>
-        <p>Amet consectetur.</p>
-    </header>
-</article>
-<article class="product-card">
-    <figure>
-        <img src="{{ url_for('static', path='picture/Work_in_progres.png') }}">
-    </figure>
-    <header class="card-info">
-        <h4 class="album-name">Lorem ipsum dolor sit</h4>
-        <p>Amet consectetur.</p>
-    </header>
-</article>
-<article class="product-card">
-    <figure>
-        <img src="{{ url_for('static', path='picture/Work_in_progres.png') }}">
-    </figure>
-    <header class="card-info">
-        <h4 class="album-name">Lorem ipsum dolor sit</h4>
-        <p>Amet consectetur.</p>
-    </header>
-</article>
+</article>    
+{% endmacro %}
