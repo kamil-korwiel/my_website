@@ -4,76 +4,27 @@
   {% include "elements/intro.html "%}
   {% import 'elements/row.html' as macro with context %}
   <style>
-    .short-long{
-      display: none;
+    .about p{
+      text-align: justify;
     }
   </style>
-  
-  <div id="content" class="radio-buttons-about">
-    <label for="radio1">
-      <div>Short</div>
-    <input type="radio" id="radio1" name="toggle" onclick="toggleDivVisibility(1)" checked>
-  </label>
-    <label for="radio2">
-      <div>Long</div>
-    <input type="radio" id="radio2" name="toggle" onclick="toggleDivVisibility(2)">
-  </label>
-  </div>
-  
-  <div id="content1", class="short-long" style="display: block">
+
+  <div id="content", class="short-long" style="display: block">
     <hr>
-
-    {{ short.about | safe }}
-
+    <div class="about">
+      {{ about | safe }}
+    </div>
     <hr>
-
-    <h1>What i know</h1>
-    {% for know in short.knows %}
+    <h1>Skills & Insights</h1>
+    {% for know in knows %}
         <h3>{{know.name}}</h3>
         {{ macro.row(know.path_img,know.text,loop.index) }}
     {% endfor %}
-
     <hr>
-
     <h1>Projects</h1>
-    {{ short.projects | safe }}
-
-    
-
+    {{ projects | safe }}
   </div>
-  <div id="content2"  class="short-long">
-    <hr>
-    {{ long.about | safe }}
-
-    <hr>
-    
-    <h1>What i know</h1>
-    {% for know in long.knows %}
-        <h5>{{know.name}}</h5>
-        {{ macro.row(know.path_img,know.text,loop.index) }}
-    {% endfor %}
-
-    <hr>
-
-    <h1>Projects</h1>
-    {{ long.projects | safe }}
-    
-
-  </div>
-  
-    <script>
-        function toggleDivVisibility(selectedRadio) {
-            // Hide all divs
-            const divs = document.querySelectorAll('.short-long');
-            divs.forEach(div => div.style.display = 'none');
-            
-            // Show the selected div
-            const selectedDiv = document.getElementById('content' + selectedRadio);
-            selectedDiv.style.display = 'block';
-
-            document.location="/#content"
-        }
-    </script>
+</div>
 
 {% include "elements/row.html "%}
 {% endblock %}
