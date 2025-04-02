@@ -5,4 +5,4 @@ from dataclasses import dataclass
 class Know:
     name:str
     path_img: str
-    text: str
+    path_md: str

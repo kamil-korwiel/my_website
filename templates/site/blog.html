@@ -1,11 +1,9 @@
 {% extends "BASE.html" %}
 
+
+
 {% block content %}
-    {% import 'elements/blog-card.html' as macro %}
-
-    {{ macro.blog_card("Top 5 Album/Artist", "20.12.2020", ["python",'sql'] ) }}
-    {{ macro.blog_card("Top 5 Album/Artist", "20.12.2020", ["python",'sql'] ) }}
-    {{ macro.blog_card("Top 5 Album/Artist", "20.12.2020", ["python",'sql'] ) }}
-
-
+    <div>
+        {{ md_blog | safe }}
+    </div>
 {% endblock %}

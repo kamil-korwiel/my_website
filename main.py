@@ -1,68 +1,48 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-import markdown
 from pathlib import Path
+from errors import exception_handlers
+from sqlmodel import Session, create_engine, select
+import json
+from model.blog import Blog
+from model.know import Know
+from utilities import get_json_data, get_markdown, init_db, insert_blog_data_to_db
 
-from model.know import Know 
-
-def get_markdown(path:Path) -> str:
-    try:
-        with path.open('r', encoding='utf-8') as file:
-            text = markdown.markdown(file.read(), extensions=['fenced_code', 'tables'])
-    except Exception as e:
-        text = '<h3 class="error">Error: Markdown file not found.</h3>'
-    return text
     
-
-app = FastAPI()
+# Initializing  application 
+app = FastAPI(exception_handlers=exception_handlers)
 app.mount("/static", StaticFiles(directory="static"), name="static")
-
 templates = Jinja2Templates(directory="templates")
 
-
-markdown_path_about = Path("./data/index/about/about.md")
-
-markdown_path_python = Path("./data/index/knowledge/python.md")
-markdown_path_testing = Path("./data/index/knowledge/testing.md")
-markdown_path_others = Path("./data/index/knowledge/others.md")
-
-markdown_path_genkaraoke = Path("./data/index/projects/genkaraoke.md")
-markdown_path_test = Path("./data/index/projects/testing.md")
-markdown_path_scraping = Path("./data/index/projects/scraping.md")
+# Initializing  database 
+engine = create_engine("sqlite:///database.db")
+init_db(engine,Path('./database.db'))
 
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    knows_short = [
-        Know(
-            name="Python",
-            path_img="350px/Python-Blue-350.png",
-            text=get_markdown(markdown_path_python)
-        ),
-        Know(
-            name="Testing",
-            path_img="350px/Test-Green-350.png",
-            text=get_markdown(markdown_path_testing)
-        ),
-        Know(
-            name="Other",
-            path_img="350px/Linux-orange-350.png",
-            text=get_markdown(markdown_path_others)
-        ),
+    markdown_path_about = Path("./data/index/about/about.md")
+
+    knows_json = get_json_data(Path("./data/index/knowledge/know.json"))
+    knows = [
+        {
+            'name': know['name'],
+            'path_img': Path(know['path_img']),
+            'text': get_markdown(Path(know['path_md']))
+        } for know in json.loads(knows_json)
     ]
 
-    projects_short = [
-        get_markdown(markdown_path_genkaraoke),
-        get_markdown(markdown_path_test),
-        get_markdown(markdown_path_scraping),
+    projects_json = get_json_data(Path("./data/index/projects/projects.json"))
+    projects = [
+       get_markdown(Path(pro_path)) for pro_path in json.loads(projects_json)
     ]
 
     context = {
         "about": get_markdown(markdown_path_about),
-        "knows": [know.__dict__ for know in knows_short],
-        "projects": "\n".join(projects_short)
+        "knows": knows,
+        "projects": "\n".join(projects)
     }
     return templates.TemplateResponse(request=request, name="site/index.html", context=context)
 
@@ -75,6 +55,32 @@ async def my_music(request: Request):
 async def contact(request: Request):
     return templates.TemplateResponse(request=request, name="site/contact.html")
 
-@app.get("/blog", response_class=HTMLResponse)
+@app.get("/blogs", response_class=HTMLResponse)
 async def blog(request: Request):
-    return templates.TemplateResponse(request=request, name="site/blog.html")
+    with Session(engine) as session:
+        statement = select(Blog)
+        results = session.exec(statement).all()
+        
+        formatted_results = [
+            {
+                "id": blog.id,
+                "title": blog.title,
+                "date": blog.date.strftime("%d.%m.%Y") 
+            }
+            for blog in results
+        ]
+
+    return templates.TemplateResponse(request=request, name="site/blogs.html",context={"blogs" : formatted_results})
+
+@app.get("/blog/{id}", response_class=HTMLResponse)
+async def blog(id: str, request: Request):
+    try:
+        with Session(engine) as session:
+            blog = session.get(Blog, id)
+            md_text = get_markdown(Path(blog.file_md_path))
+        return templates.TemplateResponse(request=request, name="site/blog.html",context={"md_blog": md_text})
+    except Exception as e:
+        raise HTTPException(status_code=404)
+    
+
+    

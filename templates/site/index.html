@@ -11,7 +11,7 @@
 
   <div id="content", class="short-long" style="display: block">
     <hr>
-    <div class="about">
+    <div id="about" class="about">
       {{ about | safe }}
     </div>
     <hr>
@@ -21,7 +21,7 @@
         {{ macro.row(know.path_img,know.text,loop.index) }}
     {% endfor %}
     <hr>
-    <h1>Projects</h1>
+    <h1 id="projects">Projects</h1>
     {{ projects | safe }}
   </div>
 </div>

@@ -1,45 +1,11 @@
 
 
-{% macro blog_card(header, date, tags) %}
-<style>
-  .blog-card{
-    display: flex;
-    flex-direction: column;
-    margin-top: 2rem;
-    padding: 1rem;
-    border: solid 1px var(--accent);
-    background-color: var(--disabled);
-  }
-  .blog-card > .title{
-    margin: 0;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px var(--accent) dashed;
-  }
-  .blog-card > .info{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .blog-card:hover {
-    transition-timing-function: ease-out;
-    transition-duration: 250ms;
-    transition-property: all;
-    box-shadow: .25rem .25rem 0rem var(--marked);
-  }
-  .tag {
-    background-color: rgb(80, 34, 18);
-    border: 1px solid var(--accent);
-    border-radius: 2em;
-    color: var(--text);
-    padding: 0.25rem 0.5rem;
-    text-decoration: none;
-    display: inline-block;
-  }
-</style>
+{% macro blog_card(id, header, date, tags) %}
 
 <div class="blog-card"> 
-    <h3 class="title">{{ header }}</h3>
+    <a href="/blog/{{ id }}">
+      <h3 class="title">{{ header }}</h3>
+    </a>
     <div class="info">
       <div class="tags">
         {% for tag in tags %}

@@ -1,0 +1,45 @@
+{% extends "BASE.html" %}
+{% block content %}
+    <style>
+        .blog-card{
+          display: flex;
+          flex-direction: column;
+          margin-top: 2rem;
+          padding: 1rem;
+          /* border: solid 1px var(--accent); */
+          background-color: var(--disabled);
+        }
+        .blog-card  .title{
+          margin: 0;
+          margin-bottom: 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px var(--accent) dashed;
+        }
+        .blog-card > .info{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        .blog-card:hover {
+          transition-timing-function: ease-out;
+          transition-duration: 250ms;
+          transition-property: all;
+          box-shadow: .25rem .25rem 0rem var(--accent);
+        }
+        .tag {
+          background-color: rgb(80, 34, 18);
+          border: 1px solid var(--accent);
+          border-radius: 2em;
+          color: var(--text);
+          padding: 0.25rem 0.75rem;
+          text-decoration: none;
+          display: inline-block;
+        }
+    </style>
+    {% from 'elements/blog-card.html' import  blog_card %}
+    {% for blog in blogs %}
+    <div>
+        {{ blog_card(blog.id, blog.title, blog.date, ["tag1","tag2"]) }}
+    </div>
+    {% endfor %}
+{% endblock %}
