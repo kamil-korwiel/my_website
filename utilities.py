@@ -39,11 +39,11 @@ def init_db(engine:Engine, name_file:str) -> None:
     if not db_exists:
         logger.info("Initializing database...")
         SQLModel.metadata.create_all(engine)
-        # blog_json = get_json_data(Path('./data/blog/blogs.json'))
+        # blog_json = get_json_data(Path('./data/blogs.json'))
         # load_blog_data_to_db(engine,blog_json)
     else:
         logger.info("Database already exists, skipping initialization.")
-        # blog_json = get_json_data(Path('./data/blog/blogs.json'))
+        # blog_json = get_json_data(Path('./data/blogs.json'))
         # insert_blog_data_to_db(engine,blog_json)
 
 def convert_to_id(str:str):

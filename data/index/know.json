@@ -1,0 +1,17 @@
+[
+    {
+        "name":"Python",
+        "path_img":"350px/Python-Blue-350.png",
+        "path_md":"./data/index/knowledge/python.md"
+    },
+    {
+        "name":"Testing",
+        "path_img":"350px/Test-Green-350.png",
+        "path_md":"./data/index/knowledge/testing.md"
+    },
+    {
+        "name":"Other",
+        "path_img":"350px/Linux-orange-350.png",
+        "path_md":"./data/index/knowledge/others.md"
+    }
+]

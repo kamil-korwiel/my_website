@@ -25,7 +25,7 @@ init_db(engine,Path('./database.db'))
 async def index(request: Request):
     markdown_path_about = Path("./data/index/about/about.md")
 
-    knows_json = get_json_data(Path("./data/index/knowledge/know.json"))
+    knows_json = get_json_data(Path("./data/index/know.json"))
     knows = [
         {
             'name': know['name'],
@@ -34,7 +34,7 @@ async def index(request: Request):
         } for know in json.loads(knows_json)
     ]
 
-    projects_json = get_json_data(Path("./data/index/projects/projects.json"))
+    projects_json = get_json_data(Path("./data/index/projects.json"))
     projects = [
        get_markdown(Path(pro_path)) for pro_path in json.loads(projects_json)
     ]

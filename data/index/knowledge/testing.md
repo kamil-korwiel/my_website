@@ -1,0 +1,7 @@
+- I became interested in testing after meeting a company manager at a musical folk event: 
+    - While playing instruments together, he recommended **Playwright** to me for web site testing
+- I learned how to:
+    - **Collect data from coverage**
+    - Create **E2E tests** and **component tests** 
+- In my spare time I test various sites, currently:  
+    - [**MealDrop**](https://github.com/yannbf/mealdrop) - to better understand testing from the perspective of someone with no experience in **React** 

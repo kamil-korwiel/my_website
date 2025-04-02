@@ -37,9 +37,18 @@
         }
     </style>
     {% from 'elements/blog-card.html' import  blog_card %}
-    {% for blog in blogs %}
-    <div>
-        {{ blog_card(blog.id, blog.title, blog.date, ["tag1","tag2"]) }}
-    </div>
-    {% endfor %}
+    {% if blogs|length %}
+      {% for blog in blogs %}
+        <div>
+            {{ blog_card(blog.id, blog.title, blog.date, ["tag1","tag2"]) }}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="row x-center">
+        <div class="column x-center y-center jumbo-text">
+            <h1>Blog posts will be <strong>SOON</strong></h1>
+            <img src="{{ url_for('static', path='picture/error/Work_in_progres.png') }}" alt="">
+        </div>
+    {% endif %}
+    
 {% endblock %}
